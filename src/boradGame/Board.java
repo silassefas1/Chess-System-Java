@@ -69,6 +69,7 @@ public class Board {
 	}
 
 	public boolean thereIsAPiece(Position position) {
+		// metodo verifica se a posição contem uma peça
 		if (!positionExists(position)) {
 			throw new BoardException("Position not on the board");
 		}
