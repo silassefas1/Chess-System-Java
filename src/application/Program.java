@@ -43,6 +43,7 @@ public class Program {
 					captured.add(capturedPiece);
 				}
 			}
+		
 			catch(ChessException e) {
 				System.out.println(e.getMessage());
 				System.out.println("press ENTER to continue:");
