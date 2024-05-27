@@ -16,9 +16,11 @@ public class ChessMatch {
 	private Board board;
 	private int turn;
 	private Color currentPlayer;
+	private boolean check;
+	private boolean checkMate;
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
-	private boolean check;
+	
 	
 	public ChessMatch() {
 		/*Configurações iniciais e incrementos da partida*/
@@ -41,6 +43,10 @@ public class ChessMatch {
 	
 	public boolean getCheck() {
 		return check;
+	}
+	
+	public boolean getCheckMate() {
+		return checkMate;
 	}
 	
 	
@@ -82,7 +88,12 @@ public class ChessMatch {
 		
 		check = (testCheck(opponent(currentPlayer)));
 		
-		nextTurn();
+		if(testCheckMate(opponent(currentPlayer))) {
+			checkMate = true;
+		}else {
+			nextTurn();
+		}
+
 		return (ChessPiece)capturePiece;
 	}
 	
@@ -153,7 +164,7 @@ public class ChessMatch {
 				return (ChessPiece)p;
 			}
 		}
-		throw new IllegalStateException("There is no King" +color+ "on the board ");
+		throw new IllegalStateException("There is no King " +color+ " on the board ");
 		
 	}
 	
@@ -163,14 +174,41 @@ public class ChessMatch {
 		Position kingPosition = king(color).getChessPosition().toPosition();
 		List<Piece> opponentPieces = piecesOnTheBoard.stream().filter(x ->((ChessPiece)x).getColor() == opponent(color)).collect(Collectors.toList());
 		for (Piece p: opponentPieces) {
-			boolean[][] matrizOpponentPieces = p.possibleMoves();
-			if(matrizOpponentPieces[kingPosition.getRow()][kingPosition.getColunm()]) {
+			boolean[][] mat = p.possibleMoves();
+			if(mat[kingPosition.getRow()][kingPosition.getColunm()]) {
 				return true;
 			}
 		}
 		return false;
 		
 	}
+	
+	
+	private boolean testCheckMate(Color color) {
+		if (!testCheck(color)) {
+			return false;
+		}
+		List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+		for (Piece p : list) {
+			boolean[][] mat = p.possibleMoves();
+			for (int i=0; i<board.getRows(); i++) {
+				for (int j=0; j<board.getColunms(); j++) {
+					if (mat[i][j]) {
+						Position source = ((ChessPiece)p).getChessPosition().toPosition();
+						Position target = new Position(i, j);
+						Piece capturedPiece = makeMove(source, target);
+						boolean testCheck = testCheck(color);
+						undoMove(source, target, capturedPiece);
+						if (!testCheck) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
 	
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
@@ -187,7 +225,7 @@ public class ChessMatch {
 	
 	public void initialSetup() {
 		/*Posiciona as peças inicialmente no tabuleiro*/
-		placeNewPiece('c', 1, new Rook(board, Color.WHITE));
+	/*	placeNewPiece('c', 1, new Rook(board, Color.WHITE));
 		placeNewPiece('c', 2, new Rook(board, Color.WHITE));
 		placeNewPiece('d', 2, new Rook(board, Color.WHITE));
 		placeNewPiece('e', 2, new Rook(board, Color.WHITE));
@@ -201,6 +239,15 @@ public class ChessMatch {
 		placeNewPiece('e', 8, new Rook(board, Color.BLACK));
 		placeNewPiece('d', 8, new King(board, Color.BLACK));
 
+		*/
+		//Teste de logica de xeque mate
+		
+		placeNewPiece('h', 7, new Rook(board, Color.WHITE));
+		placeNewPiece('d', 1, new Rook(board, Color.WHITE));
+		placeNewPiece('e', 1, new King(board, Color.WHITE));
+		
+		placeNewPiece('b', 8, new Rook(board, Color.BLACK));
+		placeNewPiece('a', 8, new King(board, Color.BLACK));
 		
 	}
 	
