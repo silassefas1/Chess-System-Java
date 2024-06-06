@@ -7,6 +7,7 @@ public class Board {
 	private Piece[][] pieces;
 
 	public Board(int rows, int columns) {
+		/**/
 		if (rows < 1 || columns < 1) {
 			throw new BoardException("Erro creating board: there must be at least 1 row and column ");
 		}
@@ -40,6 +41,7 @@ public class Board {
 	}
 
 	public void placePiece(Piece piece, Position position) {
+		/*Adiciona uma peça ao tabuleiro*/
 		if (thereIsAPiece(position)) {
 			throw new BoardException("There is already a piece on position " + position);
 		}
@@ -48,6 +50,7 @@ public class Board {
 	}
 
 	public Piece removePiece(Position position) {
+		/*Remove uma peça do tabuleiro*/
 		if (!positionExists(position)) {
 			throw new BoardException("Position not on the board");
 		}
@@ -61,10 +64,12 @@ public class Board {
 	}
 
 	private boolean positionExists(int row, int column) {
+		/*Verifica se a posição é existente*/
 		return row >= 0 && row < rows && column >= 0 && column < columns;
 	}
 
 	public boolean positionExists(Position position) {
+		/*sobrecarga de operador positionExists*/
 		return positionExists(position.getRow(), position.getColunm());
 	}
 
