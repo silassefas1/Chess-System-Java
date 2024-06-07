@@ -109,7 +109,7 @@ public class ChessMatch {
 		if(movedPiece instanceof Pawn) {
 			if((movedPiece.getColor()== Color.WHITE && target.getRow() ==0) ||(movedPiece.getColor()== Color.BLACK && target.getRow() ==7)) {
 				promoted = (ChessPiece)board.piece(target);
-				promoted = replacePromotedPiece("Q"); // Faz a chamada do metodo de promoção passando por padrão a rainha
+				promoted = replacePromotedPiece("N"); // Faz a chamada do metodo de promoção passando uma peça de promoção inicial
 			}
 		}
 		
