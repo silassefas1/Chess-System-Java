@@ -84,7 +84,7 @@ public class UI {
 
 	public static ChessPosition readChessPosition(Scanner scan) {
 		try {
-			String position = scan.nextLine();
+			String position = scan.nextLine().toLowerCase();
 			char column = position.charAt(0);
 			int row = Integer.parseInt(position.substring(1));
 			return new ChessPosition(column, row);
