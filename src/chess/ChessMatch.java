@@ -154,9 +154,9 @@ public class ChessMatch {
 	
 	private ChessPiece newPiece(String type, Color color) {
 		// retorna qual sera a nova peça instanciada no lugar do peão
-		if(type.equals("B") || type.equals("b")) return new Bishop(board, color);
-		if(type.equals("N") || type.equals("n")) return new Knight(board, color);
-		if(type.equals("Q") || type.equals("q")) return new Queen(board, color);
+		if(type.equals("B")) return new Bishop(board, color);
+		if(type.equals("N")) return new Knight(board, color);
+		if(type.equals("Q")) return new Queen(board, color);
 		return new Rook(board, color);
 	}
 	
