@@ -13,3 +13,4 @@ Durante o projeto foram visto e aplicados os seguintes temas de programação ja
 -Instancia de clases
 -Bloco Try/catch
 -Tratamento de exceções
+-Herança e polimorfismo
