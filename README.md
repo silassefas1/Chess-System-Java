@@ -1,4 +1,15 @@
 Projeto de Xadrez em Java
 
-O jogo de xadrez é uma experiência intelectualmente desafiadora que atrai entusiastas de todas as idades.
-Para oferecer uma plataforma acessível e envolvente para jogar xadrez, desenvolvi um projeto em Java com uma interface de linha de comando.
+Esse projeto tem por objetivo fixar o aprendizado da linguagem java e suas passes, 
+para isso foi criado um projeto no qual foi desenvolvido um sistema de xadrez que pode ser jogado no console da ide ou via linha de comando.
+
+Durante o projeto foram visto e aplicados os seguintes temas de programação java:
+
+-Clases 
+-Metodos
+-Listas
+-Matrizes
+-Estruturas de repetição e controle de fluxo
+-Instancia de clases
+-Bloco Try/catch
+-Tratamento de exceções
